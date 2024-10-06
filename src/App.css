@@ -1,16 +1,24 @@
 #root {
-  max-width: 90%;
+  max-width: 100%;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
 }
 
-h1 {
+.App {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.App h1 {
   font-size: 3em;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
   margin: 0;
   padding: 40px 0;
-  max-width: 1200px;
+  width: 1200px;
 }
 
 .container {
@@ -55,6 +63,20 @@ table tr:hover {
 
 
 .add-todo-button {
+  width: 80%;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: white;
+  cursor: pointer;
+  transition: border-color 0.25s, box-shadow 0.25s;
+  margin-top: 1rem;
+}
+
+.delete-todo-button {
   width: 80%;
   border-radius: 8px;
   border: 1px solid transparent;
