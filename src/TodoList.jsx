@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
 import { useState, useRef } from "react";
@@ -87,8 +88,8 @@ export default function TodoList() {
       <TextField label="Description" name="desc" placeholder="Description" onChange={handleChange} value={formData.desc} />
       <TextField label="Priority" name="prio" placeholder="Priority" onChange={handleChange} value={formData.prio} />
       <DatePicker label="Date" type="date" name="date" placeholder="Date" onChange={handleDateChange} value={formData.date} renderInput={(params) => <TextField {...params} />} />
-      <Button variant="contained" className="add-todo-button" onClick={addTodo}>Add</Button>
-      <Button color="error" className="delete-todo-button" onClick={handleDelete}>Done</Button>
+      <Button variant="outlined" className="add-todo-button" onClick={addTodo}>Add</Button>
+      <Button variant="outlined" color="error" className="delete-todo-button" onClick={handleDelete}>Delete <DeleteIcon /></Button>
       </Stack>
       <div className="ag-theme-material" style={{width: 1000, height: 500}}>
       <AgGridReact 
