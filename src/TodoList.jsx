@@ -5,6 +5,7 @@ import Stack from '@mui/material/Stack';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import DeleteIcon from '@mui/icons-material/Delete';
+import ClearIcon from '@mui/icons-material/Clear';
 import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
@@ -74,12 +75,18 @@ export default function TodoList() {
   };
 
   const handleDelete = () => {
-    if (gridRef.current.getSelectedNodes().length > 0) {
-      setTodos(todos.filter((todo, index) => 
-        index !== gridRef.current.getSelectedNodes()[0].id));
+    const selectedRows = gridRef.current.getSelectedRows();
+    if (selectedRows.length > 0) {
+      const rowToDelete = selectedRows[0];
+      setTodos(todos.filter(todo => todo !== rowToDelete));
     } else {
       alert('Select a row first!');
     }
+  };
+
+  const handleClear = () => {
+    setTodos([]);
+    setFormData({ desc: "", prio: "", date: null });
   };
 
   return (
@@ -96,6 +103,7 @@ export default function TodoList() {
           <FormControl sx={{ m: 1, minWidth: 120 }}>
           <InputLabel id="priority-label">Priority</InputLabel>
           <Select
+            data-testid="priority-select"
             labelId="priority-label"
             id="priority"
             name="prio"
@@ -110,6 +118,7 @@ export default function TodoList() {
           <DatePicker label="Date" type="date" name="date" placeholder="Date" onChange={handleDateChange} value={formData.date} renderInput={(params) => <TextField {...params} />} />
           <Button variant="outlined" className="add-todo-button" onClick={addTodo}>Add</Button>
           <Button variant="outlined" color="error" className="delete-todo-button" onClick={handleDelete}>Delete <DeleteIcon /></Button>
+          <Button variant="outlined" color="secondary" className="delete-todo-button" onClick={handleClear}>Clear <ClearIcon /></Button>
         </Stack>
         <div className="ag-theme-material" style={{width: 1000, height: 500}}>
           <AgGridReact 
@@ -117,7 +126,7 @@ export default function TodoList() {
             onGridReady={ params => gridRef.current = params.api }
             rowData={todos} 
             columnDefs={columnDefs}
-            rowSelection={{mode: "singleRow"}} 
+            rowSelection={{mode: "single"}} 
           />
         </div> 
       </>
